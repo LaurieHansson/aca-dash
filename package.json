@@ -1,0 +1,22 @@
+{
+  "name": "aca-dash",
+  "version": "1.0.0",
+  "description": "Homework Assignment For 311",
+  "main": "index.js",
+  "scripts": {
+    "test": "checkIt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LaurieHansson/aca-dash.git"
+  },
+  "author": "Laurie Hansson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LaurieHansson/aca-dash/issues"
+  },
+  "homepage": "https://github.com/LaurieHansson/aca-dash#readme",
+  "dependencies": {
+    "mocha": "^5.2.0"
+  }
+}

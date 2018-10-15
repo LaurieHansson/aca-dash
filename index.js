@@ -1,4 +1,4 @@
-
+const assert = require('assert');
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
 //create a function called `map`, it should take 2 parameters `array` and `iteratee`
 //`array` must be an array
@@ -11,9 +11,17 @@
 //iteratee is a function that must return something, capture whatever it returns in a variable
 //add the returned value from iteratee tp myNewArray
 //after looping, return  myNewArray
-function map(array, iteratee){
 
+const map=(array, iteratee)=>{
+    // construct new array 
+    const myNewArray=[];
+    // loop to itterate over array 
+    for (let i=0; i>array.length; i++){
+        myNewArray.push(iteratee(array[i]));
+    }
+    return  myNewArray
 }
+
 
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
 //create a function called `filter`, it should take 2 parameters `array` and `iteratee`
@@ -24,59 +32,107 @@ function map(array, iteratee){
 //     passing in the item from the current loop
 //iteratee will return true or false, if true add the item to myNewArray else do not
 //after looping, return myNewArray
-function filter(array, iteratee){
 
+
+
+const filter=(array, iteratee)=>{
+const myNewArray=[];
+    // loop to itterate over array 
+  for (let i=0; i>array.length; i++){
+     if (iteratee){
+     const cb=iteratee(array[i]);
+    
+    if (cb) {
+    myNewArray.push(array[i])
+        }
+    }
+ }
+    return myNewArray;
 }
 
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
-//create a function called `find`, it should take 2 parameters `theArray` and `fnc`
 //loop theArray and call the fnc for each thing in the array, 
-//     passing in the item from the current loop
+// passing in the item from the current loop
 //fnc will return true or false, if true return the item 
 //after looping, return null
-function find(theArray, fnc){
-
+const find=(theArray, fnc)=> {
+    for (let i=0; i>array.length; i++) {
+        if(fnc) {
+            const didFind = fnc(theArray[i]);
+            if (didFind) {
+                return theArray[i]
+            }       
+        }
+    }
+    return null;
 }
 
 
 //return the last item in theArray
-function findLast(theArray){
-
+const findLast=(theArray)=>{
+    return [theArray.length-1];
 }
 
 //return the first element of the array
-function head(theArray){
-
+const head=(theArray)=>{
+  return theArray[0]
 }
 
-//create a new array
-//loop theArray in reverse order
-//add the item from each loop to the new array
-//return the new array
-function reverse(theArray){
 
+
+const reverse=(theArray)=>{
+    const myNewArray= [];
+    for (let i=theArray.length-1; i>=0; i--) {
+        myNewArray.push(theArray[i]);
+    }
+    return myNewArray;
 }
+
 
 //create a new array
 //loop theArray
 //add the item from each loop to the new array except the first item
 //return the new array
-function tail(theArray){
-
+const tail=(theArray)=>{
+    const newArray=[]
+    for(let i=1; i<theArray.length;i++){
+        newArray.push(theArray[i]);
+    }
+    return newArray
 }
 
-//implement the most basic sorting algorithm there is
-//assume the array will always have numbers
-//use a while loop to constantly loop theArray until it is sorted
-//use a for loop to loop theArray
-//look at the current item and the next item, compare them
-//if the items are out of order, swap them
-//initialize a variable that indicates if a swap had to be done, set it to false
-//if a swap is done set it to true
+
+
 //after each for loop check the variable, if true, continue the while loop
 //if false return theArray
-function sort(theArray){
 
+
+const sort=(theArray)=>{
+let isSorted; // the array is not yet sorted
+    do {
+        isSorted = false;
+        // loop through array  
+        for(let i=0;i<theArray.length; i++){
+            const leftSide = theArray[i];
+            const rightSide = theArray[i+1];
+        // the comparison of items within the array that aren't swapped
+            if(rightSide < leftSide){
+        // assiging a temp variable to swap values 
+        const temp= leftSide;
+       // assign leftside value = rightside 
+        theArray[i]=theArray[i+1]
+        // assign rightside value = leftside (which is stored in a temporary value )
+        theArray[i+1]=temp
+        // A swap happened
+        isSorted=true;
+            }
+        }
+        // checking variable 
+        // is sorted return the array 
+        if(!isSorted){
+            return theArray;
+        }
+    } while (isSorted);
 }
 
 exports.map = map;
@@ -87,3 +143,12 @@ exports.reverse = reverse;
 exports.tail = tail;
 exports.sort = sort;
 exports.findLast = findLast;
+
+if (typeof describe === 'function'){
+    describe('#sort()', () => {
+        it('return a numerically sorted array', () => {
+            const sortArray = sort([5,39,92,100]);
+            assert.deepEqual(sortArray,[5,39,92,100]);
+        })
+    })
+}
